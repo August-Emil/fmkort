@@ -1,11 +1,12 @@
 Package: fmkort
 Type: Package
-Title: Create nice fm looking maps
+Title: What the Package Does (Title Case)
 Version: 0.1.0
-Author: August Emil Flindt <augustflindt@icloud.com>
-Maintainer: August Emil Flindt <augustflindt@icloud.com>
-Description: This package includes function, which can make maps in an fm-format.
-License: MIT + file LICENSE
+Author: Who wrote it
+Maintainer: The package maintainer <yourself@somewhere.net>
+Description: More about what it does (maybe more than one line)
+    Use four spaces when indenting paragraphs within the Description.
+License: What license is it under?
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.1.0
