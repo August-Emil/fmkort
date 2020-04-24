@@ -9,10 +9,15 @@ fmcirkelkort(
   lat,
   lon,
   label = NULL,
-  radius = 3,
+  radius = 10,
   color = NULL,
   scale = "factor",
-  bins = 7
+  bins = 7,
+  alpha = 0.3,
+  dot = TRUE,
+  textsize = "11px",
+  legend = FALSE,
+  output = NULL
 )
 }
 \arguments{
@@ -31,6 +36,16 @@ fmcirkelkort(
 \item{scale}{The type of the scale for the colors (if color is specified). Can be either 'factor', 'numeric' or 'bin'}
 
 \item{bins}{The number of bins if 'bin' is specified in scale.}
+
+\item{alpha}{The transparency of the circle. [0,1].}
+
+\item{dot}{Shold the middle of the circle have a dot (TRUE/FALSE, default = TRUE)}
+
+\item{textsize}{The textsize of the label. Default is "11px".}
+
+\item{legend}{Add a legend to the graph}
+
+\item{output}{The name of the output (a .png file). If not specified, not outcome will b exported.}
 }
 \value{
 something

@@ -3,4 +3,6 @@
 export(fmcirkelkort)
 export(hello)
 import(leaflet)
+import(leaflet.extras)
 importFrom(grDevices,rgb)
+importFrom(mapview,mapshot)

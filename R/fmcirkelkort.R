@@ -8,20 +8,27 @@
 #' @param color A string equal to a column name in the data. If specified, the circles will have different colors.
 #' @param scale The type of the scale for the colors (if color is specified). Can be either 'factor', 'numeric' or 'bin'
 #' @param bins The number of bins if 'bin' is specified in scale.
+#' @param alpha The transparency of the circle. [0,1].
+#' @param dot Shold the middle of the circle have a dot (TRUE/FALSE, default = TRUE)
+#' @param textsize The textsize of the label. Default is "11px".
+#' @param legend Add a legend to the graph
+#' @param output The name of the output (a .png file). If not specified, not outcome will b exported.
 #'
 #' @return something
 #' @export
 #'
 #' @import leaflet
+#' @import leaflet.extras
 #'
 #' @importFrom grDevices rgb
+#' @importFrom mapview mapshot
 #'
 #'
 #' @examples
 #' \dontrun{
 #' fmcirkelkort()
 #' }
-fmcirkelkort <- function(data, lat, lon, label = NULL, radius = 3, color = NULL, scale = "factor", bins = 7){
+fmcirkelkort <- function(data, lat, lon, label = NULL, radius = 10, color = NULL, scale = "factor", bins = 7, alpha = 0.3, dot = TRUE, textsize = "11px", legend = FALSE, output = NULL){
 
   # Load the map data
   shapefile <- fmkort::regional
@@ -69,4 +76,61 @@ fmcirkelkort <- function(data, lat, lon, label = NULL, radius = 3, color = NULL,
     farver <- farver[c(1,2)]
     factpal <- colorNumeric(farver, data$color)
   }
+
+
+  # Move Bornholm
+  shapefile@polygons[[4]]@Polygons[[1]]@coords[,1] <- regional@polygons[[4]]@Polygons[[1]]@coords[,1]-2.7
+  shapefile@polygons[[4]]@Polygons[[1]]@coords[,2] <- regional@polygons[[4]]@Polygons[[1]]@coords[,2]+2.2
+
+  data$lat[which(data$lon>13)] <- data$lat[which(data$lon>13)]+2.2
+  data$lon[which(data$lon>13)] <- data$lon[which(data$lon>13)]-2.7
+
+
+  # Create the map of Denmark
+  leafletmap <- leaflet(shapefile, options = leafletOptions(zoomControl = FALSE, attributionControl = FALSE)) %>%
+    addPolygons(fillOpacity = 1,
+                color = rgb(180/255,202/255,213/255),
+                stroke = F)
+
+
+  # Add the circles to the map
+  leafletmap <- addCircles(leafletmap,lng = data$lon, lat = data$lat, weight = 1, fillOpacity = alpha, opacity = 0.5, radius = data$radius * 1000, color = factpal(data$color))
+
+
+  # Add a dot in the middle of the circle
+  if (dot == TRUE){
+    leafletmap <- addCircleMarkers(leafletmap, lng = data$lon, lat = data$lat, radius=2,
+                                   opacity = 1, fillOpacity = 0.75, weight=0, color=factpal(data$color),
+                                   label = data$label, labelOptions = labelOptions(noHide = add_label, textOnly=T, textsize = textsize))
+  }
+
+  # Create some lines to show that Bornholm has been moved.
+  leafletmap <- addPolylines(leafletmap, lng = c(11.8, 11.8, 12.6), lat = c(57.6, 57.1,57.1),
+                             color='Black', weight = 1, opacity = 1)
+
+
+  # Change the backgroup color to the FM color
+  leafletmap <- leafletmap %>% setMapWidgetStyle(list(background = rgb(249/255,248/255,224/255)))
+
+
+  # Moved the map to the center of Denmark
+  leafletmap <- leafletmap %>% setView(lng = 10.41765, lat = 56.163221, zoom = 7)
+
+
+  # Add the legend if the legend is specified.
+  if (legend == TRUE){
+    leafletmap <- addLegend(leafletmap, pal = factpal, values = data$color, position = "bottomleft", labFormat = labelFormat(big.mark = " "), className = "panel panel-default legend", opacity = 1)
+  }
+
+
+  # Export the graph as a .png file if specified.
+  if(!is.null(output)){
+    graph_name <- paste(output,".png", sep="")
+    mapview::mapshot(leafletmap, file = graph_name,
+                     remove_controls = c("zoomControl"), vwidth = 500, vheight = 600)
+  }
+
+
+  return(leafletmap)
+
 }
