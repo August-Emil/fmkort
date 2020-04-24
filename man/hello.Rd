@@ -7,7 +7,7 @@
 hello()
 }
 \value{
-
+something
 }
 \description{
 Title

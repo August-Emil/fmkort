@@ -1,6 +1,6 @@
 #' Title
 #'
-#' @return
+#' @return something
 #' @export
 #'
 #' @examples hello()
