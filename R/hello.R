@@ -1,12 +1,9 @@
-#' Hello World Function
+#' Title
 #'
 #' @return
 #' @export
 #'
-#' @examples
-#' \dontrun{
-#' hello()
-#' }
+#' @examples hello()
 hello <- function() {
   print("Hello, world!")
 }

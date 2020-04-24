@@ -2,7 +2,7 @@
 % Please edit documentation in R/hello.R
 \name{hello}
 \alias{hello}
-\title{Hello World Function}
+\title{Title}
 \usage{
 hello()
 }
@@ -10,10 +10,8 @@ hello()
 
 }
 \description{
-Hello World Function
+Title
 }
 \examples{
-\dontrun{
 hello()
-}
 }
