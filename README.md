@@ -7,53 +7,54 @@
 
 <!-- badges: end -->
 
-The goal of fmkort is to …
+Denne pakke indeholder funktioner, som kan lave danmarkskort i et
+layout, som passer til Finansministeriets skabeloner. Koden i pakken er
+kraftigt inspireret af
+[leafletDK](https://github.com/mikkelkrogsholm/leafletDK) af [Mikkel
+Krogsholm](https://github.com/mikkelkrogsholm).
+
+Pakken indenholder pt følgende funktioner:
+
+  - lave danmarkskort med cirkler ud fra koortinater med `fmcirkelkort`
+
+Alle er velkommen til at bidrag til pakken funktionalitet ved at komme
+med forslag til forberinger og nye fuktioner/features eller endnu bedre
+ved at selv at udvikle på eksisterende funktioner eller ny funktioner.
+Lave en pull request eller et issue på GitHub, skriv til min mail
+(<auefl@fm.dk>) eller stik hovedet forbi.
 
 ## Installation
 
-You can install the released version of fmkort from
-[CRAN](https://CRAN.R-project.org) with:
-
-``` r
-install.packages("fmkort")
-```
-
-And the development version from [GitHub](https://github.com/) with:
+Du kan installere fmkort-pakken fra GitHub ved at køre følgende kode i R
 
 ``` r
 # install.packages("devtools")
 devtools::install_github("August-Emil/fmkort")
 ```
 
-## Example
+Det kan være nødvendigt at genstarte R efter installationen
+(<kbd>shift</kbd> + <kbd>cmd</kbd> + <kbd>F10</kbd> på mac eller
+<kbd>shift</kbd> + <kbd>crlt</kbd> + <kbd>F10</kbd> på Windows).
 
-This is a basic example which shows you how to solve a common problem:
+## Funktioner
+
+Nedenfor gives en række eksempler på funktionerne i pakken. Alt data og
+alle figurer kan findes i mappen `man/examples`
 
 ``` r
 library(fmkort)
-## basic example code
 ```
 
-What is special about using `README.Rmd` instead of just `README.md`?
-You can include R chunks like so:
+##### fmcirkelkort
+
+Funktionen `fmcirkelkort` laver et kort med cirkler, som har en givet
+radius. Cirklernes placering bestemmes ud fra længe- og breddegrader,
+mens cirklernes radius enten kan bestemmes som en fast størrelse (fx
+`radius=30`) eller ud fra en kolonne i ens data (fx `radius="km"`).
 
 ``` r
-summary(cars)
-#>      speed           dist       
-#>  Min.   : 4.0   Min.   :  2.00  
-#>  1st Qu.:12.0   1st Qu.: 26.00  
-#>  Median :15.0   Median : 36.00  
-#>  Mean   :15.4   Mean   : 42.98  
-#>  3rd Qu.:19.0   3rd Qu.: 56.00  
-#>  Max.   :25.0   Max.   :120.00
+load("man/examples/sygeplejerskeuddannelser.Rda")
+fmcirkelkort(data = sygeplejerskeuddannelser, lon = "laengdegrad", lat = "breddegrad", radius = "km", color = "status", legend = T)
 ```
 
-You’ll still need to render `README.Rmd` regularly, to keep `README.md`
-up-to-date.
-
-You can also embed plots, for example:
-
-<img src="man/figures/README-pressure-1.png" width="100%" />
-
-In that case, don’t forget to commit and push the resulting figure
-files, so they display on GitHub\!
+![](man/examples/README-fig1-1.png)<!-- -->
