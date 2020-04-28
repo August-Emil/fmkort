@@ -1,4 +1,4 @@
-#' Title
+#' fmcirkelkort
 #'
 #' @param data Choose the data frame
 #' @param lat The name of the column in the data with the latitude coordinates.
@@ -14,7 +14,7 @@
 #' @param legend Add a legend to the graph
 #' @param output The name of the output (a .png file). If not specified, not outcome will b exported.
 #'
-#' @return something
+#' @return A map of Denmark with circles on
 #' @export
 #'
 #' @import leaflet

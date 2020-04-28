@@ -2,7 +2,7 @@
 % Please edit documentation in R/fmcirkelkort.R
 \name{fmcirkelkort}
 \alias{fmcirkelkort}
-\title{Title}
+\title{fmcirkelkort}
 \usage{
 fmcirkelkort(
   data,
@@ -48,10 +48,10 @@ fmcirkelkort(
 \item{output}{The name of the output (a .png file). If not specified, not outcome will b exported.}
 }
 \value{
-something
+A map of Denmark with circles on
 }
 \description{
-Title
+fmcirkelkort
 }
 \examples{
 \dontrun{
