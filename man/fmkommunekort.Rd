@@ -2,13 +2,13 @@
 % Please edit documentation in R/fmkommunekort.R
 \name{fmkommunekort}
 \alias{fmkommunekort}
-\title{Title}
+\title{fmkommunekort}
 \usage{
 fmkommunekort(
   data = NULL,
   id = NULL,
   value = NULL,
-  num_val = "numeric",
+  scale = "numeric",
   bins = 5,
   legend = FALSE,
   legendtitle = NULL,
@@ -16,30 +16,30 @@ fmkommunekort(
 )
 }
 \arguments{
-\item{data}{x}
+\item{data}{The data frame for the municipality data}
 
-\item{id}{x}
+\item{id}{The name of the municipality}
 
-\item{value}{x}
+\item{value}{The value for the municipality which shall correspond to the color on the map}
 
-\item{num_val}{x}
+\item{scale}{The type of the scale for the colors. Can be either 'factor', 'numeric' (default) or 'bin'}
 
-\item{bins}{x}
+\item{bins}{The number of bins if 'bin' specified under 'scale'. Default = 5.}
 
-\item{legend}{x}
+\item{legend}{Choose whether the map should includ a legend (default = FALSE)}
 
-\item{legendtitle}{x}
+\item{legendtitle}{Choose the name above the legendtitle. Default is the same name as the column specified under 'legend'}
 
-\item{output}{x}
+\item{output}{The name of the exported .png file. No map exported if the output = NULL (default = NULL)}
 }
 \value{
-A map
+A map of the Danish municipalities.
 }
 \description{
-Title
+fmkommunekort
 }
 \examples{
 \dontrun{
-fmkommunekort()
+fmkommunekort(data = data, id = id, value = value)
 }
 }

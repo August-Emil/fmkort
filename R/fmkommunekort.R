@@ -1,15 +1,15 @@
-#' Title
+#' fmkommunekort
 #'
-#' @param data x
-#' @param id x
-#' @param value x
-#' @param num_val x
-#' @param legend x
-#' @param legendtitle x
-#' @param output x
-#' @param bins x
+#' @param data The data frame for the municipality data
+#' @param id The name of the municipality
+#' @param value The value for the municipality which shall correspond to the color on the map
+#' @param scale The type of the scale for the colors. Can be either 'factor', 'numeric' (default) or 'bin'
+#' @param legend Choose whether the map should includ a legend (default = FALSE)
+#' @param legendtitle Choose the name above the legendtitle. Default is the same name as the column specified under 'legend'
+#' @param output The name of the exported .png file. No map exported if the output = NULL (default = NULL)
+#' @param bins The number of bins if 'bin' specified under 'scale'. Default = 5.
 #'
-#' @return A map
+#' @return A map of the Danish municipalities.
 #'
 #' @import leaflet
 #' @import leaflet.extras
@@ -20,9 +20,9 @@
 #'
 #' @examples
 #' \dontrun{
-#' fmkommunekort()
+#' fmkommunekort(data = data, id = id, value = value)
 #' }
-fmkommunekort <- function(data = NULL, id = NULL, value = NULL, num_val = 'numeric', bins = 5, legend = FALSE,  legendtitle = NULL, output = NULL){
+fmkommunekort <- function(data = NULL, id = NULL, value = NULL, scale = 'numeric', bins = 5, legend = FALSE,  legendtitle = NULL, output = NULL){
 
   # Load the municipality map.
   shapefile <- fmkort::municipal
@@ -50,15 +50,15 @@ fmkommunekort <- function(data = NULL, id = NULL, value = NULL, num_val = 'numer
               rgb(0/255,84/255,46/255), rgb(230/255,68/255,21/255), rgb(112/255,80/255,185/255),
               rgb(85/255,145/255,205/255), rgb(240/255,0/255,95/255))
 
-  if (num_val == "factor"){
+  if (scale == "factor"){
     farver <- farver[1:length(unique(data$values))]
     factpal <- colorFactor(farver, data$values, ordered = T)
   }
-  else if (num_val == "bin"){
+  else if (scale == "bin"){
     farver <- farver[1:bins]
     factpal <- colorBin(farver, data$values, bins=bins)
   }
-  else if (num_val == "numeric"){
+  else if (scale == "numeric"){
     farver <- farver[c(3,1)]
     factpal <- colorNumeric(farver, data$values)
   }
