@@ -43,7 +43,7 @@ library(fmkort)
 ```
 
 
-##### fmcirkelkort
+#### fmcirkelkort
 Funktionen `fmcirkelkort` laver et kort med cirkler, som har en givet radius. Cirklernes placering bestemmes ud fra længe- og breddegrader, mens cirklernes radius enten kan bestemmes som en fast størrelse (fx `radius=30`) eller ud fra en kolonne i ens data (fx `radius="km"`).
 
 ```{r fig1, fig.height = 5.9, fig.width=5.9}
@@ -51,7 +51,7 @@ load("man/examples/sygeplejerskeuddannelser.Rda")
 fmcirkelkort(data = sygeplejerskeuddannelser, lon = "laengdegrad", lat = "breddegrad", radius = "km", color = "status", legend = T)
 ```
 
-##### fmkommunekortkort
+#### fmkommunekortkort
 Funktionen `fmkommunekortkort` laver et danmarkskort hvor kommunerner fyldes ud med en farve med en tilsvarende værdi. Dette kan fx være arbejdsløsheden. Farveskalen kan enten være numerisk (flydende), opdelt i 'bins' eller efter kategorier (typsik hvis værdien ikke er nurmerisk, fx borgmesterens parti.)
 
 ```{r fig2, fig.height = 5.9, fig.width=5.9}

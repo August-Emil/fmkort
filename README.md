@@ -45,7 +45,7 @@ alle figurer kan findes i mappen `man/examples`
 library(fmkort)
 ```
 
-##### fmcirkelkort
+#### fmcirkelkort
 
 Funktionen `fmcirkelkort` laver et kort med cirkler, som har en givet
 radius. Cirklernes placering bestemmes ud fra længe- og breddegrader,
@@ -59,7 +59,7 @@ fmcirkelkort(data = sygeplejerskeuddannelser, lon = "laengdegrad", lat = "bredde
 
 ![](man/examples/README-fig1-1.png)<!-- -->
 
-##### fmkommunekortkort
+#### fmkommunekortkort
 
 Funktionen `fmkommunekortkort` laver et danmarkskort hvor kommunerner
 fyldes ud med en farve med en tilsvarende værdi. Dette kan fx være
