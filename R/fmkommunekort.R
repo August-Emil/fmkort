@@ -70,7 +70,7 @@ fmkommunekort <- function(data = NULL, id = NULL, value = NULL, num_val = 'numer
 
 
   # Create the map and fill the municipalities with the colors
-  leafletmap <- leaflet(shapefile) %>%
+  leafletmap <- leaflet(shapefile, options = leafletOptions(zoomControl = FALSE, attributionControl = FALSE))%>%
     addPolygons(fillColor = ~factpal(values),
                 fillOpacity = 1,
                 color = "000000",
@@ -85,6 +85,21 @@ fmkommunekort <- function(data = NULL, id = NULL, value = NULL, num_val = 'numer
 
   # Change the background color
   leafletmap <- leafletmap %>% setMapWidgetStyle(list(background = rgb(249/255,248/255,224/255)))
+
+  # Make lines around Bornholm
+  leafletmap <- addPolylines(leafletmap, lng = c(11.8, 11.8, 12.6), lat = c(57.6, 57.1,57.1),
+                             color='Black', weight = 1, opacity = 1)
+
+
+  # Center the map
+  leafletmap <- leafletmap %>% setView(lng = 10.41765, lat = 56.163221, zoom = 6.5)
+
+  # Export the graph as a .png file if specified.
+  if(!is.null(output)){
+    graph_name <- paste(output,".png", sep="")
+    mapview::mapshot(leafletmap, file = graph_name, vwidth = 500, vheight = 600)
+  }
+
 
 
   return(leafletmap)
