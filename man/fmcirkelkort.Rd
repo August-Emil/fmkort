@@ -33,7 +33,7 @@ fmcirkelkort(
 
 \item{color}{A string equal to a column name in the data. If specified, the circles will have different colors.}
 
-\item{scale}{The type of the scale for the colors (if color is specified). Can be either 'factor', 'numeric' or 'bin'}
+\item{scale}{The type of the scale for the colors (if color is specified). Can be either 'factor', 'numeric', bin.num' or 'bin.cat'}
 
 \item{bins}{The number of bins if 'bin' is specified in scale.}
 

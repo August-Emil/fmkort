@@ -6,7 +6,7 @@
 #' @param label Adds a lable to the to the center of the circle. Should be specified as a name of one of the columns of the data.
 #' @param radius The radius of the circles on the map (in meters). If a numerical value is chosen, all circles will have the same radius. If a string is chosen, the column in the data with the name of the string will be chosen. The radius of the circles will be equal to the number in the chosen column. The column must contain numeric values. Defalut is 30000 meters.
 #' @param color A string equal to a column name in the data. If specified, the circles will have different colors.
-#' @param scale The type of the scale for the colors (if color is specified). Can be either 'factor', 'numeric' or 'bin'
+#' @param scale The type of the scale for the colors (if color is specified). Can be either 'factor', 'numeric', bin.num' or 'bin.cat'
 #' @param bins The number of bins if 'bin' is specified in scale.
 #' @param alpha The transparency of the circle. [0,1].
 #' @param dot Shold the middle of the circle have a dot (TRUE/FALSE, default = TRUE)
@@ -68,8 +68,12 @@ fmcirkelkort <- function(data, lat, lon, label = NULL, radius = 10, color = NULL
     farver <- farver[1:length(unique(data$color))]
     factpal <- colorFactor(farver, data$color, ordered = T)
   }
-  else if (scale == "bin"){
-    farver <- farver[c(1,bins)]
+  else if (scale == "bin.num"){
+    farver <- farver[c(3,1)]
+    factpal <- colorBin(farver, data$color, bins=bins)
+  }
+  else if (scale == "bin.cat"){
+    farver <- farver[1:bins]
     factpal <- colorBin(farver, data$color, bins=bins)
   }
   else if (scale == "numeric"){

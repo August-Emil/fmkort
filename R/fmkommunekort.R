@@ -3,7 +3,7 @@
 #' @param data The data frame for the municipality data
 #' @param id The name of the municipality
 #' @param value The value for the municipality which shall correspond to the color on the map
-#' @param scale The type of the scale for the colors. Can be either 'factor', 'numeric' (default) or 'bin'
+#' @param scale The type of the scale for the colors. Can be either 'factor', 'numeric' (default), 'bin.num' or 'bin.cat'
 #' @param legend Choose whether the map should includ a legend (default = FALSE)
 #' @param legendtitle Choose the name above the legendtitle. Default is the same name as the column specified under 'legend'
 #' @param output The name of the exported .png file. No map exported if the output = NULL (default = NULL)
@@ -54,7 +54,11 @@ fmkommunekort <- function(data = NULL, id = NULL, value = NULL, scale = 'numeric
     farver <- farver[1:length(unique(data$values))]
     factpal <- colorFactor(farver, data$values, ordered = T)
   }
-  else if (scale == "bin"){
+  else if (scale == "bin.num"){
+    farver <- farver[c(3,1)]
+    factpal <- colorBin(farver, data$values, bins=bins)
+  }
+  else if (scale == "bin.cat"){
     farver <- farver[1:bins]
     factpal <- colorBin(farver, data$values, bins=bins)
   }

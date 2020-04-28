@@ -58,3 +58,18 @@ fmcirkelkort(data = sygeplejerskeuddannelser, lon = "laengdegrad", lat = "bredde
 ```
 
 ![](man/examples/README-fig1-1.png)<!-- -->
+
+##### fmkommunekortkort
+
+Funktionen `fmkommunekortkort` laver et danmarkskort hvor kommunerner
+fyldes ud med en farve med en tilsvarende værdi. Dette kan fx være
+arbejdsløsheden. Farveskalen kan enten være numerisk (flydende), opdelt
+i ‘bins’ eller efter kategorier (typsik hvis værdien ikke er nurmerisk,
+fx borgmesterens parti.)
+
+``` r
+load("man/examples/arblos_kom.Rda")
+fmkort::fmkommunekort(data = arblos_kom, id = "kommune", value = "arblos", legend = T, legendtitle = "Arbjedsløshed", scale = 'bin.num')
+```
+
+![](man/examples/README-fig2-1.png)<!-- -->

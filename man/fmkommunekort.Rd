@@ -22,7 +22,7 @@ fmkommunekort(
 
 \item{value}{The value for the municipality which shall correspond to the color on the map}
 
-\item{scale}{The type of the scale for the colors. Can be either 'factor', 'numeric' (default) or 'bin'}
+\item{scale}{The type of the scale for the colors. Can be either 'factor', 'numeric' (default), 'bin.num' or 'bin.cat'}
 
 \item{bins}{The number of bins if 'bin' specified under 'scale'. Default = 5.}
 
