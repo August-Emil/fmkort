@@ -156,7 +156,7 @@ fmrarkort <- function(data = NULL, id = NULL, value = NULL, scale = 'numeric', b
   # Add markers if specified
   if(marker == T){
     if(is.numeric(data$value)){
-    data$value <- format(round(data$value, digits = ndigits), nsmall = ndigits)
+    data$value <- format(round(data$value, digits = ndigits), nsmall = ndigits, decimal.mark = ",")
     }
 
     lon_mark <-  c(9.7,8.7,10.4, 9, 10.4, 11.8, 12.5)

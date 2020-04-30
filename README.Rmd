@@ -72,5 +72,5 @@ Funktionen `fmregionkort` har samme funktionaliteter som `fmrarkort` blot for en
 
 ```{r fig4, fig.height = 5.9, fig.width=5.9}
 load("man/examples/middellevetid.rda")
-fmregionkort(data = middellevetid, id = "Region", value = "value", suffix = "År")
+fmregionkort(data = middellevetid, id = "Region", value = "value", suffix = "år")
 ```

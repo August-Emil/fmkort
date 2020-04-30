@@ -96,7 +96,7 @@ blot for en anden geografisk inddeling.
 
 ``` r
 load("man/examples/middellevetid.rda")
-fmregionkort(data = middellevetid, id = "Region", value = "value", suffix = "År")
+fmregionkort(data = middellevetid, id = "Region", value = "value", suffix = "år")
 ```
 
 ![](man/examples/README-fig4-1.png)<!-- -->

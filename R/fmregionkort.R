@@ -105,7 +105,7 @@ fmregionkort <- function(data = NULL, id = NULL, value = NULL, scale = 'numeric'
   # Add markers if specified
   if(marker == T){
     if(is.numeric(data$values)){
-      data$values <- format(round(data$values, digits = ndigits), nsmall = ndigits)
+      data$values <- format(round(data$values, digits = ndigits), nsmall = ndigits, decimal.mark = ",")
     }
 
     lon_mark <-  c(9.7,9.5, 9.5, 11.8, 12.5)
