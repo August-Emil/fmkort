@@ -36,6 +36,7 @@ fmkommunekort <- function(data = NULL, id = NULL, value = NULL, scale = 'numeric
   data$tom <- 0
   colnames<- c(value)
   data <- data[,c(colnames)]
+  data <- as.data.frame(data)
   colnames(data) <- c("values")
 
 

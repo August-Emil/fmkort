@@ -2,6 +2,7 @@
 
 export(fmcirkelkort)
 export(fmkommunekort)
+export(fmrarkort)
 export(hello)
 import(leaflet)
 import(leaflet.extras)
