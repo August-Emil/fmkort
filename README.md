@@ -54,7 +54,7 @@ mens cirklernes radius enten kan bestemmes som en fast størrelse (fx
 
 ``` r
 load("man/examples/sygeplejerskeuddannelser.Rda")
-fmcirkelkort(data = sygeplejerskeuddannelser, lon = "laengdegrad", lat = "breddegrad", radius = "km", color = "status", legend = T)
+fmcirkelkort(data = sygeplejerskeuddannelser, lon = "laengdegrad", lat = "breddegrad", radius = "km", color = "status", legend = T, dot = F, alpha = 0.8)
 ```
 
 ![](man/examples/README-fig1-1.png)<!-- -->
