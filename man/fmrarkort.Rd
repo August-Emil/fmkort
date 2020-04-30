@@ -2,38 +2,53 @@
 % Please edit documentation in R/fmrarkort.R
 \name{fmrarkort}
 \alias{fmrarkort}
-\title{Title}
+\title{fmrarkort}
 \usage{
 fmrarkort(
   data = NULL,
   id = NULL,
   value = NULL,
-  suffix = "",
+  scale = "numeric",
+  bins = 5,
+  legend = FALSE,
+  legendtitle = NULL,
   bornholm = TRUE,
+  output = NULL,
   marker = TRUE,
+  suffix = "",
   ndigits = 1
 )
 }
 \arguments{
-\item{data}{data}
+\item{data}{The data frame for the RAR data}
 
-\item{id}{id}
+\item{id}{The name of the RAR area}
 
-\item{value}{value}
+\item{value}{The value for the RAR area which shall correspond to the color on the map}
 
-\item{suffix}{suffix}
+\item{scale}{The type of the scale for the colors. Can be either 'factor', 'numeric' (default), 'bin.num' or 'bin.cat'}
 
-\item{bornholm}{bornholm}
+\item{bins}{The number of bins if 'bin' specified under 'scale'. Default = 5.}
 
-\item{marker}{marker}
+\item{legend}{Choose whether the map should includ a legend (default = FALSE)}
 
-\item{ndigits}{digits}
+\item{legendtitle}{Choose the name above the legendtitle. Default is the same name as the column specified under 'legend'}
+
+\item{bornholm}{Should Bornholm be moved north west to be included in the map? defalut = TRUE}
+
+\item{output}{The name of the exported .png file. No map exported if the output = NULL (default = NULL)}
+
+\item{marker}{Adds marker to the map saying e.g. "Nordjylland: xx" where the value of xx correspond to the value for Nordjylland in the data. Defalut = TRUE}
+
+\item{suffix}{The suffix of the marker text, e.g. "pct."}
+
+\item{ndigits}{The number of digits on the marker text}
 }
 \value{
-a map
+A map of the RAR areas.
 }
 \description{
-Title
+fmrarkort
 }
 \examples{
 \dontrun{

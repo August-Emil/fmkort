@@ -43,7 +43,7 @@ library(fmkort)
 ```
 
 
-#### fmcirkelkort
+### Kort med cirkler
 Funktionen `fmcirkelkort` laver et kort med cirkler, som har en givet radius. Cirklernes placering bestemmes ud fra længe- og breddegrader, mens cirklernes radius enten kan bestemmes som en fast størrelse (fx `radius=30`) eller ud fra en kolonne i ens data (fx `radius="km"`).
 
 ```{r fig1, fig.height = 5.9, fig.width=5.9}
@@ -51,11 +51,18 @@ load("man/examples/sygeplejerskeuddannelser.Rda")
 fmcirkelkort(data = sygeplejerskeuddannelser, lon = "laengdegrad", lat = "breddegrad", radius = "km", color = "status", legend = T)
 ```
 
-#### fmkommunekortkort
+### Kommunekort
 Funktionen `fmkommunekortkort` laver et danmarkskort hvor kommunerner fyldes ud med en farve med en tilsvarende værdi. Dette kan fx være arbejdsløsheden. Farveskalen kan enten være numerisk (flydende), opdelt i 'bins' eller efter kategorier (typsik hvis værdien ikke er nurmerisk, fx borgmesterens parti.)
 
 ```{r fig2, fig.height = 5.9, fig.width=5.9}
 load("man/examples/arblos_kom.Rda")
-fmkort::fmkommunekort(data = arblos_kom, id = "kommune", value = "arblos", legend = T, legendtitle = "Arbjedsløshed", scale = 'bin.num')
+fmkommunekort(data = arblos_kom, id = "kommune", value = "arblos", legend = T, legendtitle = "Arbjedsløshed", scale = 'bin.num')
 ```
 
+### RAR-kort
+Funktionen `fmrarkort` laver et danmarkskort hvor de regionale arbejdsmarkedsråd (RAR) fyldes ud med en farve med en tilsvarende værdi. Dette kan fx være den forgæves rekretteringsrate Funktionen kan lave markers/labels som angiver værdien for RAR-området. Derudover har funktionen de samme funktionaliteter som `fmkommunekort`
+
+```{r fig3, fig.height = 5.9, fig.width=5.9}
+load("man/examples/rardata.Rda")
+fmrarkort(data = rardata, id = "omraade", value = "value", suffix = "pct.")
+```

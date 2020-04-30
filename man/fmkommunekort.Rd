@@ -12,6 +12,7 @@ fmkommunekort(
   bins = 5,
   legend = FALSE,
   legendtitle = NULL,
+  bornholm = T,
   output = NULL
 )
 }
@@ -29,6 +30,8 @@ fmkommunekort(
 \item{legend}{Choose whether the map should includ a legend (default = FALSE)}
 
 \item{legendtitle}{Choose the name above the legendtitle. Default is the same name as the column specified under 'legend'}
+
+\item{bornholm}{Should Bornholm be moved north west to be included in the map?}
 
 \item{output}{The name of the exported .png file. No map exported if the output = NULL (default = NULL)}
 }

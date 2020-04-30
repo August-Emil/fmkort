@@ -8,6 +8,7 @@
 #' @param legendtitle Choose the name above the legendtitle. Default is the same name as the column specified under 'legend'
 #' @param output The name of the exported .png file. No map exported if the output = NULL (default = NULL)
 #' @param bins The number of bins if 'bin' specified under 'scale'. Default = 5.
+#' @param bornholm Should Bornholm be moved north west to be included in the map?
 #'
 #' @return A map of the Danish municipalities.
 #'
@@ -22,7 +23,7 @@
 #' \dontrun{
 #' fmkommunekort(data = data, id = id, value = value)
 #' }
-fmkommunekort <- function(data = NULL, id = NULL, value = NULL, scale = 'numeric', bins = 5, legend = FALSE,  legendtitle = NULL, output = NULL){
+fmkommunekort <- function(data = NULL, id = NULL, value = NULL, scale = 'numeric', bins = 5, legend = FALSE,  legendtitle = NULL, bornholm = T, output = NULL){
 
   # Load the municipality map.
   shapefile <- fmkort::municipal
@@ -70,9 +71,10 @@ fmkommunekort <- function(data = NULL, id = NULL, value = NULL, scale = 'numeric
 
 
   # Move Bornholm
+  if(bornholm == T){
   shapefile@polygons[[100]]@Polygons[[1]]@coords[,1] <- shapefile@polygons[[100]]@Polygons[[1]]@coords[,1]-2.7
   shapefile@polygons[[100]]@Polygons[[1]]@coords[,2] <- shapefile@polygons[[100]]@Polygons[[1]]@coords[,2] +2.2
-
+  }
 
   # Create the map and fill the municipalities with the colors
   leafletmap <- leaflet(shapefile, options = leafletOptions(zoomControl = FALSE, attributionControl = FALSE))%>%
@@ -92,9 +94,10 @@ fmkommunekort <- function(data = NULL, id = NULL, value = NULL, scale = 'numeric
   leafletmap <- leafletmap %>% setMapWidgetStyle(list(background = rgb(249/255,248/255,224/255)))
 
   # Make lines around Bornholm
+  if(bornholm ==T){
   leafletmap <- addPolylines(leafletmap, lng = c(11.8, 11.8, 12.6), lat = c(57.6, 57.1,57.1),
                              color='Black', weight = 1, opacity = 1)
-
+  }
 
   # Center the map
   leafletmap <- leafletmap %>% setView(lng = 10.41765, lat = 56.163221, zoom = 6.5)

@@ -1,21 +1,28 @@
-#' Title
+#' fmrarkort
 #'
-#' @param data data
-#' @param id id
-#' @param value value
-#' @param suffix suffix
-#' @param ndigits digits
-#' @param bornholm bornholm
-#' @param marker marker
+#' @param data The data frame for the RAR data
+#' @param id The name of the RAR area
+#' @param value The value for the RAR area which shall correspond to the color on the map
+#' @param scale The type of the scale for the colors. Can be either 'factor', 'numeric' (default), 'bin.num' or 'bin.cat'
+#' @param bins The number of bins if 'bin' specified under 'scale'. Default = 5.
+#' @param legend Choose whether the map should includ a legend (default = FALSE)
+#' @param legendtitle Choose the name above the legendtitle. Default is the same name as the column specified under 'legend'
+#' @param output The name of the exported .png file. No map exported if the output = NULL (default = NULL)
+#' @param bornholm Should Bornholm be moved north west to be included in the map? defalut = TRUE
+#' @param marker Adds marker to the map saying e.g. "Nordjylland: xx" where the value of xx correspond to the value for Nordjylland in the data. Defalut = TRUE
+#' @param suffix The suffix of the marker text, e.g. "pct."
+#' @param ndigits The number of digits on the marker text
+
+
 #'
-#' @return a map
+#' @return A map of the RAR areas.
 #' @export
 #'
 #' @examples
 #' \dontrun{
 #' fmrarkort(data = data, id = id, value = value)
 #' }
-fmrarkort <- function(data = NULL, id = NULL, value = NULL, suffix = "", bornholm = TRUE, marker = TRUE, ndigits = 1){
+fmrarkort <- function(data = NULL, id = NULL, value = NULL, scale = 'numeric', bins = 5, legend = FALSE,  legendtitle = NULL, bornholm = TRUE, output = NULL, marker = TRUE, suffix = "", ndigits = 1){
 
   # Adjust the data
   data$tom <- 0
@@ -142,7 +149,9 @@ fmrarkort <- function(data = NULL, id = NULL, value = NULL, suffix = "", bornhol
   komdata[81:87,]$value <- data[which(data$id == "vestjylland"),]$value
   komdata[88:99,]$value <- data[which(data$id == "oestjylland"),]$value
 
-  leafletmap <- fmkommunekort(data = komdata, id = "id", value = "value")
+
+  # Create the map
+  leafletmap <- fmkommunekort(data = komdata, id = "id", value = "value",  scale = scale, bins = bins, legend = legend,  legendtitle = legendtitle, bornholm = bornholm, output = output)
 
   # Add markers if specified
   if(marker == T){
