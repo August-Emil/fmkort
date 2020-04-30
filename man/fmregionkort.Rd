@@ -36,7 +36,13 @@ fmregionkort(
 
 \item{bornholm}{Should Bornholm be moved north west to be included in the map?}
 
+\item{marker}{Adds marker to the map saying e.g. "Nordjylland: xx" where the value of xx correspond to the value for Nordjylland in the data. Defalut = TRUE}
+
+\item{suffix}{The suffix of the marker text, e.g. "pct."}
+
 \item{output}{The name of the exported .png file. No map exported if the output = NULL (default = NULL)}
+
+\item{ndigits}{The number of digits on the marker text}
 }
 \value{
 A map of the Danish regions
