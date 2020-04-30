@@ -88,3 +88,18 @@ fmrarkort(data = rardata, id = "omraade", value = "value", suffix = "pct.")
 ```
 
 ![](man/examples/README-fig3-1.png)<!-- -->
+
+### Regionskort
+
+Funktionen `fmrarkort` laver et danmarkskort hvor de regionale
+arbejdsmarkedsråd (RAR) fyldes ud med en farve med en tilsvarende værdi.
+Dette kan fx være den forgæves rekretteringsrate Funktionen kan lave
+markers/labels som angiver værdien for RAR-området. Derudover har
+funktionen de samme funktionaliteter som `fmkommunekort`
+
+``` r
+load("man/examples/middellevetid.rda")
+fmregionkort(data = middellevetid, id = "Region", value = "value", suffix = "pct.")
+```
+
+![](man/examples/README-fig4-1.png)<!-- -->
