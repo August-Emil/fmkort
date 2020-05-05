@@ -18,4 +18,5 @@ Imports:
     leaflet.extras,
     mapview,
     stringr,
-    dplyr
+    dplyr,
+    openrouteservice
