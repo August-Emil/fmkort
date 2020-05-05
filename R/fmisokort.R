@@ -1,15 +1,15 @@
-#' Title
+#' fmisokort
 #'
-#' @param data data
-#' @param lat lat
-#' @param lon lon
-#' @param quota quata
-#' @param api_key api
-#' @param profile profile
-#' @param range range
-#' @param intervals interval
-#' @param range_type range_type
-#' @param output output
+#' @param data Choose the data frame
+#' @param lat The name of the column in the data with the latitude coordinates.
+#' @param lon The name of the column in the data with the longitude coordinates.
+#' @param quota Set the quota left on the api key
+#' @param api_key Set the api key
+#' @param profile Choose the profile. This is the same as the profile for openrouteservice::ors_isochrones. Default = 'driving-car'.
+#' @param range Choose the range in km for the isochrones. Defalut = 10.
+#' @param intervals Choose the number of isochrones for each coorinate. Default = 1
+#' @param output The name of the output (a .png file). If not specified, not outcome will b exported.
+#' @param map Add the isochrones to a map.
 #'
 #' @return a map
 #'
@@ -21,7 +21,7 @@
 #' \dontrun{
 #' fmisokort()
 #' }
-fmisokort <- function(data = NULL, lat = NULL, lon = NULL, quota = 500, profile = 'driving-car', range = 10, intervals = 1, range_type = 'distance', api_key = NULL, output = NULL){
+fmisokort <- function(data = NULL, lat = NULL, lon = NULL, quota = 500, profile = 'driving-car', range = 10, intervals = 1, api_key = NULL, output = NULL, map = NULL){
 
   # Find the maximum number of iterations
   max_reaced <- min(quota, ceiling(nrow(data) / 5))
@@ -34,11 +34,14 @@ fmisokort <- function(data = NULL, lat = NULL, lon = NULL, quota = 500, profile 
   shapefile@polygons[[4]]@Polygons[[1]]@coords[,2] <- regional@polygons[[4]]@Polygons[[1]]@coords[,2]+2.2
 
   # Create the map of Denmark
+  leafletmap <- map
+
+  if (is.null(map)){
   leafletmap <- leaflet(shapefile, options = leafletOptions(zoomControl = FALSE, attributionControl = FALSE)) %>%
     addPolygons(fillOpacity = 1,
                 color = rgb(180/255,202/255,213/255),
                 stroke = F)
-
+  }
   # Create and add the isochrones
   for (i in 1:max_reaced) {
 
@@ -51,12 +54,12 @@ fmisokort <- function(data = NULL, lat = NULL, lon = NULL, quota = 500, profile 
     coordinates <- data[row_start:row_end, c(lat, lon)]
 
     # Create the isochrones
-    isodata <- ors_isochrones(coordinates, range = range, interval = range / intervals, range_type = range_type, area_units = 'km', units = 'km', api_key = api_key, output = "sf")
+    isodata <- ors_isochrones(coordinates, range = range, interval = range / intervals, range_type = 'distance', area_units = 'km', units = 'km', api_key = api_key, output = "sf")
 
     #Add to leafletmap
     for (j in 1:nrow(isodata)){
-      isodata[[4]][[j]][[1]][,1][which(isodata[[4]][[j]][[1]][,1]>13)] <- isodata[[4]][[j]][[1]][,1][which(isodata[[4]][[j]][[1]][,1]>13)]-2.7
-      isodata[[4]][[j]][[1]][,2][which(isodata[[4]][[j]][[1]][,1]>13)] <- isodata[[4]][[j]][[1]][,2][which(isodata[[4]][[j]][[1]][,1]>13)]+2.2
+      isodata[[4]][[j]][[1]][,2][which(isodata[[4]][[j]][[1]][,1]>13)] <- isodata[[4]][[j]][[1]][,2][which(isodata[[4]][[j]][[1]][,1]>13)] + 2.2
+      isodata[[4]][[j]][[1]][,1][which(isodata[[4]][[j]][[1]][,1]>13)] <- isodata[[4]][[j]][[1]][,1][which(isodata[[4]][[j]][[1]][,1]>13)] - 2.7
 
       leafletmap <- addPolygons(leafletmap, lng = isodata[[4]][[j]][[1]][,1], lat = isodata[[4]][[j]][[1]][,2], color = rgb(3/255,29/255,92/255), opacity = 0, fillOpacity = 0.8, )
     }

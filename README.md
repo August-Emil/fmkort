@@ -45,20 +45,6 @@ alle figurer kan findes i mappen `man/examples`
 library(fmkort)
 ```
 
-### Kort med cirkler
-
-Funktionen `fmcirkelkort` laver et kort med cirkler, som har en givet
-radius. Cirklernes placering bestemmes ud fra længe- og breddegrader,
-mens cirklernes radius enten kan bestemmes som en fast størrelse (fx
-`radius=30`) eller ud fra en kolonne i ens data (fx `radius="km"`).
-
-``` r
-load("man/examples/sygeplejerskeuddannelser.Rda")
-fmcirkelkort(data = sygeplejerskeuddannelser, lon = "laengdegrad", lat = "breddegrad", radius = "km", color = "status", legend = T, dot = F, alpha = 0.8)
-```
-
-![](man/examples/README-fig1-1.png)<!-- -->
-
 ### Kommunekort
 
 Funktionen `fmkommunekortkort` laver et danmarkskort hvor kommunerner
@@ -70,6 +56,9 @@ fx borgmesterens parti.)
 ``` r
 load("man/examples/arblos_kom.Rda")
 fmkommunekort(data = arblos_kom, id = "kommune", value = "arblos", legend = T, legendtitle = "Arbjedsløshed", scale = 'bin.num')
+#> Registered S3 method overwritten by 'dplyr':
+#>   method         from       
+#>   print.location geojsonlint
 ```
 
 ![](man/examples/README-fig2-1.png)<!-- -->
@@ -100,3 +89,31 @@ fmregionkort(data = middellevetid, id = "Region", value = "value", suffix = "år
 ```
 
 ![](man/examples/README-fig4-1.png)<!-- -->
+
+### Kort med cirkler
+
+Funktionen `fmcirkelkort` laver et kort med cirkler, som har en givet
+radius. Cirklernes placering bestemmes ud fra længe- og breddegrader,
+mens cirklernes radius enten kan bestemmes som en fast størrelse (fx
+`radius=30`) eller ud fra en kolonne i ens data (fx `radius="km"`).
+
+``` r
+load("man/examples/sygeplejerskeuddannelser.Rda")
+fmcirkelkort(data = sygeplejerskeuddannelser, lon = "laengdegrad", lat = "breddegrad", radius = "km", color = "status", legend = T, dot = F, alpha = 0.8)
+```
+
+![](man/examples/README-fig1-1.png)<!-- -->
+
+### Isokron
+
+Funktionen `fmisokort` lavet et kort med isokroner, som viser området
+med kan nå indenfor xx km i bil fra et eller flere koordinanter.
+Funktionen bruger `openrouteservice::ors_isochrones` til at lave
+isokronerne.
+
+``` r
+load("man/examples/gymnasier.Rda")
+map20 <- fmkort::fmisokort(data = gymnasier, lat = 'lat', lon = 'lon', profile = 'driving-car', range = 20, quota = 50, api_key = api_key)
+```
+
+![](man/examples/README-fig5-1.png)

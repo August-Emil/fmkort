@@ -2,7 +2,7 @@
 % Please edit documentation in R/fmisokort.R
 \name{fmisokort}
 \alias{fmisokort}
-\title{Title}
+\title{fmisokort}
 \usage{
 fmisokort(
   data = NULL,
@@ -12,37 +12,37 @@ fmisokort(
   profile = "driving-car",
   range = 10,
   intervals = 1,
-  range_type = "distance",
   api_key = NULL,
-  output = NULL
+  output = NULL,
+  map = NULL
 )
 }
 \arguments{
-\item{data}{data}
+\item{data}{Choose the data frame}
 
-\item{lat}{lat}
+\item{lat}{The name of the column in the data with the latitude coordinates.}
 
-\item{lon}{lon}
+\item{lon}{The name of the column in the data with the longitude coordinates.}
 
-\item{quota}{quata}
+\item{quota}{Set the quota left on the api key}
 
-\item{profile}{profile}
+\item{profile}{Choose the profile. This is the same as the profile for openrouteservice::ors_isochrones. Default = 'driving-car'.}
 
-\item{range}{range}
+\item{range}{Choose the range in km for the isochrones. Defalut = 10.}
 
-\item{intervals}{interval}
+\item{intervals}{Choose the number of isochrones for each coorinate. Default = 1}
 
-\item{range_type}{range_type}
+\item{api_key}{Set the api key}
 
-\item{api_key}{api}
+\item{output}{The name of the output (a .png file). If not specified, not outcome will b exported.}
 
-\item{output}{output}
+\item{map}{Add the isochrones to a map.}
 }
 \value{
 a map
 }
 \description{
-Title
+fmisokort
 }
 \examples{
 \dontrun{
