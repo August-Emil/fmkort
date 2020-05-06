@@ -113,7 +113,7 @@ isokronerne.
 
 ``` r
 load("man/examples/gymnasier.Rda")
-map20 <- fmkort::fmisokort(data = gymnasier, lat = 'lat', lon = 'lon', profile = 'driving-car', range = 20, quota = 50, api_key = api_key)
+map20 <- fmkort::fmisokort(data = gymnasier, lat = 'lat', lon = 'lon', color = 'udkant', profile = 'driving-car', range = 20, quota = 50, api_key = api_key)
 ```
 
 ![](man/examples/README-fig5-1.png)

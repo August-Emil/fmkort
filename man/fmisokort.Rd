@@ -8,11 +8,13 @@ fmisokort(
   data = NULL,
   lat = NULL,
   lon = NULL,
+  color = NULL,
   quota = 500,
   profile = "driving-car",
   range = 10,
   intervals = 1,
   api_key = NULL,
+  legend = FALSE,
   output = NULL,
   map = NULL
 )
@@ -24,6 +26,8 @@ fmisokort(
 
 \item{lon}{The name of the column in the data with the longitude coordinates.}
 
+\item{color}{The color of the isochrones}
+
 \item{quota}{Set the quota left on the api key}
 
 \item{profile}{Choose the profile. This is the same as the profile for openrouteservice::ors_isochrones. Default = 'driving-car'.}
@@ -33,6 +37,8 @@ fmisokort(
 \item{intervals}{Choose the number of isochrones for each coorinate. Default = 1}
 
 \item{api_key}{Set the api key}
+
+\item{legend}{Add a legend? default = FALSE}
 
 \item{output}{The name of the output (a .png file). If not specified, not outcome will b exported.}
 
