@@ -12,8 +12,8 @@
 #' @param marker Adds marker to the map saying e.g. "Nordjylland: xx" where the value of xx correspond to the value for Nordjylland in the data. Defalut = TRUE
 #' @param suffix The suffix of the marker text, e.g. "pct."
 #' @param ndigits The number of digits on the marker text
-
-
+#' @param background Choose the background color
+#' @param filetype Choose the file type of the output file ("png" (= defalut), "pdf" or ".jpeg")
 #'
 #' @return A map of the RAR areas.
 #' @export
@@ -22,7 +22,7 @@
 #' \dontrun{
 #' fmrarkort(data = data, id = id, value = value)
 #' }
-fmrarkort <- function(data = NULL, id = NULL, value = NULL, scale = 'numeric', bins = 5, legend = FALSE,  legendtitle = NULL, bornholm = TRUE, output = NULL, marker = TRUE, suffix = "", ndigits = 1){
+fmrarkort <- function(data = NULL, id = NULL, value = NULL, scale = 'numeric', bins = 5, legend = FALSE,  legendtitle = NULL, bornholm = TRUE, output = NULL, marker = TRUE, suffix = "", ndigits = 1, background = rgb(249/255,248/255,224/255), filetype = ".png"){
 
   # Adjust the data
   data$tom <- 0
@@ -151,7 +151,7 @@ fmrarkort <- function(data = NULL, id = NULL, value = NULL, scale = 'numeric', b
 
 
   # Create the map
-  leafletmap <- fmkommunekort(data = komdata, id = "id", value = "value",  scale = scale, bins = bins, legend = legend,  legendtitle = legendtitle, bornholm = bornholm, output = output)
+  leafletmap <- fmkommunekort(data = komdata, id = "id", value = "value",  scale = scale, bins = bins, legend = legend,  legendtitle = legendtitle, bornholm = bornholm, output = output, background = background, filetype = filetype)
 
   # Add markers if specified
   if(marker == T){

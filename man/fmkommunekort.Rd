@@ -13,7 +13,9 @@ fmkommunekort(
   legend = FALSE,
   legendtitle = NULL,
   bornholm = T,
-  output = NULL
+  output = NULL,
+  background = rgb(249/255, 248/255, 224/255),
+  filetype = ".png"
 )
 }
 \arguments{
@@ -34,6 +36,10 @@ fmkommunekort(
 \item{bornholm}{Should Bornholm be moved north west to be included in the map?}
 
 \item{output}{The name of the exported .png file. No map exported if the output = NULL (default = NULL)}
+
+\item{background}{Choose the background color}
+
+\item{filetype}{Choose the file type of the output file ("png" (= defalut), "pdf" or ".jpeg")}
 }
 \value{
 A map of the Danish municipalities.

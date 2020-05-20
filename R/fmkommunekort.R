@@ -9,6 +9,8 @@
 #' @param output The name of the exported .png file. No map exported if the output = NULL (default = NULL)
 #' @param bins The number of bins if 'bin' specified under 'scale'. Default = 5.
 #' @param bornholm Should Bornholm be moved north west to be included in the map?
+#' @param background Choose the background color
+#' @param filetype Choose the file type of the output file ("png" (= defalut), "pdf" or ".jpeg")
 #'
 #' @return A map of the Danish municipalities.
 #'
@@ -23,7 +25,7 @@
 #' \dontrun{
 #' fmkommunekort(data = data, id = id, value = value)
 #' }
-fmkommunekort <- function(data = NULL, id = NULL, value = NULL, scale = 'numeric', bins = 5, legend = FALSE,  legendtitle = NULL, bornholm = T, output = NULL){
+fmkommunekort <- function(data = NULL, id = NULL, value = NULL, scale = 'numeric', bins = 5, legend = FALSE,  legendtitle = NULL, bornholm = T, output = NULL, background = rgb(249/255,248/255,224/255), filetype = ".png"){
 
   # Load the municipality map.
   shapefile <- fmkort::municipal
@@ -91,7 +93,7 @@ fmkommunekort <- function(data = NULL, id = NULL, value = NULL, scale = 'numeric
   }
 
   # Change the background color
-  leafletmap <- leafletmap %>% setMapWidgetStyle(list(background = rgb(249/255,248/255,224/255)))
+  leafletmap <- leafletmap %>% setMapWidgetStyle(list(background = background))
 
   # Make lines around Bornholm
   if(bornholm ==T){
@@ -104,7 +106,7 @@ fmkommunekort <- function(data = NULL, id = NULL, value = NULL, scale = 'numeric
 
   # Export the graph as a .png file if specified.
   if(!is.null(output)){
-    graph_name <- paste(output,".png", sep="")
+    graph_name <- paste(output, filetype, sep="")
     mapview::mapshot(leafletmap, file = graph_name, vwidth = 500, vheight = 600)
   }
 

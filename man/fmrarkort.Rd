@@ -16,7 +16,9 @@ fmrarkort(
   output = NULL,
   marker = TRUE,
   suffix = "",
-  ndigits = 1
+  ndigits = 1,
+  background = rgb(249/255, 248/255, 224/255),
+  filetype = ".png"
 )
 }
 \arguments{
@@ -43,6 +45,10 @@ fmrarkort(
 \item{suffix}{The suffix of the marker text, e.g. "pct."}
 
 \item{ndigits}{The number of digits on the marker text}
+
+\item{background}{Choose the background color}
+
+\item{filetype}{Choose the file type of the output file ("png" (= defalut), "pdf" or ".jpeg")}
 }
 \value{
 A map of the RAR areas.
