@@ -16,7 +16,10 @@ fmregionkort(
   marker = T,
   suffix = "",
   output = NULL,
-  ndigits = 1
+  ndigits = 1,
+  background = rgb(249/255, 248/255, 224/255),
+  filetype = ".png",
+  farver = NULL
 )
 }
 \arguments{
@@ -43,6 +46,12 @@ fmregionkort(
 \item{output}{The name of the exported .png file. No map exported if the output = NULL (default = NULL)}
 
 \item{ndigits}{The number of digits on the marker text}
+
+\item{background}{Choose the background color}
+
+\item{filetype}{Choose the file type of the output file ("png" (= defalut), "pdf" or ".jpeg")}
+
+\item{farver}{A character vector containing colors. (default = FM colors)}
 }
 \value{
 A map of the Danish regions

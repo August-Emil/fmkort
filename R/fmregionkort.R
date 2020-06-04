@@ -12,6 +12,9 @@
 #' @param marker Adds marker to the map saying e.g. "Nordjylland: xx" where the value of xx correspond to the value for Nordjylland in the data. Defalut = TRUE
 #' @param suffix The suffix of the marker text, e.g. "pct."
 #' @param ndigits The number of digits on the marker text
+#' @param background Choose the background color
+#' @param filetype Choose the file type of the output file ("png" (= defalut), "pdf" or ".jpeg")
+#' @param farver A character vector containing colors. (default = FM colors)
 #'
 #' @return A map of the Danish regions
 #' @export
@@ -20,7 +23,7 @@
 #' \dontrun{
 #' fmregionkort(data = data, id = id, value = value)
 #' }
-fmregionkort <- function(data = NULL, id = NULL, value = NULL, scale = 'numeric', bins = 5, legend = FALSE,  legendtitle = NULL, bornholm = T, marker = T, suffix ="", output = NULL, ndigits = 1){
+fmregionkort <- function(data = NULL, id = NULL, value = NULL, scale = 'numeric', bins = 5, legend = FALSE,  legendtitle = NULL, bornholm = T, marker = T, suffix ="", output = NULL, ndigits = 1, background = rgb(249/255,248/255,224/255), filetype = ".png", farver = NULL){
 
   # Load the municipality map.
   shapefile <- fmkort::regional
@@ -46,10 +49,12 @@ fmregionkort <- function(data = NULL, id = NULL, value = NULL, scale = 'numeric'
 
 
   # Change the color pallet.
-  farver <- c(rgb(3/255,29/255,92/255),rgb(148/255,0/255,39/255), rgb(116/255,201/255,230/255),
-              rgb(176/255,201/255,51/255), rgb(30/255,119/255,150/255), rgb(176/255,148/255,9/255),
-              rgb(0/255,84/255,46/255), rgb(230/255,68/255,21/255), rgb(112/255,80/255,185/255),
-              rgb(85/255,145/255,205/255), rgb(240/255,0/255,95/255))
+  if (is.null(farver)){
+    farver <- c(rgb(3/255,29/255,92/255),rgb(148/255,0/255,39/255), rgb(116/255,201/255,230/255),
+                rgb(176/255,201/255,51/255), rgb(30/255,119/255,150/255), rgb(176/255,148/255,9/255),
+                rgb(0/255,84/255,46/255), rgb(230/255,68/255,21/255), rgb(112/255,80/255,185/255),
+                rgb(85/255,145/255,205/255), rgb(240/255,0/255,95/255))
+  }
 
   if (scale == "factor"){
     farver <- farver[1:length(unique(data$values))]
@@ -136,7 +141,7 @@ fmregionkort <- function(data = NULL, id = NULL, value = NULL, scale = 'numeric'
 
   # Export the graph as a .png file if specified.
   if(!is.null(output)){
-    graph_name <- paste(output,".png", sep="")
+    graph_name <- paste(output,filetype, sep="")
     mapview::mapshot(leafletmap, file = graph_name, vwidth = 500, vheight = 600)
   }
 
