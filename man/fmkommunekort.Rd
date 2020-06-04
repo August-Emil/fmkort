@@ -12,6 +12,7 @@ fmkommunekort(
   bins = 5,
   legend = FALSE,
   legendtitle = NULL,
+  farver = NULL,
   bornholm = T,
   output = NULL,
   background = rgb(249/255, 248/255, 224/255),
@@ -32,6 +33,8 @@ fmkommunekort(
 \item{legend}{Choose whether the map should includ a legend (default = FALSE)}
 
 \item{legendtitle}{Choose the name above the legendtitle. Default is the same name as the column specified under 'legend'}
+
+\item{farver}{A character vector containing colors. (default = FM colors)}
 
 \item{bornholm}{Should Bornholm be moved north west to be included in the map?}
 

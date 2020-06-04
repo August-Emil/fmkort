@@ -11,6 +11,7 @@
 #' @param bornholm Should Bornholm be moved north west to be included in the map?
 #' @param background Choose the background color
 #' @param filetype Choose the file type of the output file ("png" (= defalut), "pdf" or ".jpeg")
+#' @param farver A character vector containing colors. (default = FM colors)
 #'
 #' @return A map of the Danish municipalities.
 #'
@@ -25,7 +26,7 @@
 #' \dontrun{
 #' fmkommunekort(data = data, id = id, value = value)
 #' }
-fmkommunekort <- function(data = NULL, id = NULL, value = NULL, scale = 'numeric', bins = 5, legend = FALSE,  legendtitle = NULL, bornholm = T, output = NULL, background = rgb(249/255,248/255,224/255), filetype = ".png"){
+fmkommunekort <- function(data = NULL, id = NULL, value = NULL, scale = 'numeric', bins = 5, legend = FALSE,  legendtitle = NULL, farver = NULL, bornholm = T, output = NULL, background = rgb(249/255,248/255,224/255), filetype = ".png"){
 
   # Load the municipality map.
   shapefile <- fmkort::municipal
@@ -49,10 +50,12 @@ fmkommunekort <- function(data = NULL, id = NULL, value = NULL, scale = 'numeric
 
 
   # Change the color pallet.
-  farver <- c(rgb(3/255,29/255,92/255),rgb(148/255,0/255,39/255), rgb(116/255,201/255,230/255),
-              rgb(176/255,201/255,51/255), rgb(30/255,119/255,150/255), rgb(176/255,148/255,9/255),
-              rgb(0/255,84/255,46/255), rgb(230/255,68/255,21/255), rgb(112/255,80/255,185/255),
-              rgb(85/255,145/255,205/255), rgb(240/255,0/255,95/255))
+  if (is.null(farver)){
+    farver <- c(rgb(3/255,29/255,92/255),rgb(148/255,0/255,39/255), rgb(116/255,201/255,230/255),
+                rgb(176/255,201/255,51/255), rgb(30/255,119/255,150/255), rgb(176/255,148/255,9/255),
+                rgb(0/255,84/255,46/255), rgb(230/255,68/255,21/255), rgb(112/255,80/255,185/255),
+                rgb(85/255,145/255,205/255), rgb(240/255,0/255,95/255))
+  }
 
   if (scale == "factor"){
     farver <- farver[1:length(unique(data$values))]
@@ -60,7 +63,7 @@ fmkommunekort <- function(data = NULL, id = NULL, value = NULL, scale = 'numeric
   }
   else if (scale == "bin.num"){
     farver <- farver[c(3,1)]
-    factpal <- colorBin(farver, data$values, bins=bins)
+    factpal <- colorBin(farver, data$values, bins=3)
   }
   else if (scale == "bin.cat"){
     farver <- farver[1:bins]
@@ -69,6 +72,10 @@ fmkommunekort <- function(data = NULL, id = NULL, value = NULL, scale = 'numeric
   else if (scale == "numeric"){
     farver <- farver[c(3,1)]
     factpal <- colorNumeric(farver, data$values)
+  }
+  else if (scale == "tri.fac"){
+    farver <- farver[c(5,1,3)]
+    factpal <- colorFactor(farver, data$values, ordered = T)
   }
 
 
