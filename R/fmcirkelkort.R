@@ -13,6 +13,9 @@
 #' @param textsize The textsize of the label. Default is "11px".
 #' @param legend Add a legend to the graph
 #' @param output The name of the output (a .png file). If not specified, not outcome will b exported.
+#' @param background Choose the background color
+#' @param filetype Choose the file type of the output file ("png" (= defalut), "pdf" or ".jpeg")
+#' @param farver A character vector containing colors. (default = FM colors)
 #'
 #' @return A map of Denmark with circles on
 #' @export
@@ -28,7 +31,7 @@
 #' \dontrun{
 #' fmcirkelkort()
 #' }
-fmcirkelkort <- function(data, lat, lon, label = NULL, radius = 10, color = NULL, scale = "factor", bins = 7, alpha = 0.3, dot = TRUE, textsize = "11px", legend = FALSE, output = NULL){
+fmcirkelkort <- function(data, lat, lon, label = NULL, radius = 10, color = NULL, scale = "factor", bins = 7, alpha = 0.3, dot = TRUE, textsize = "11px", legend = FALSE, output = NULL, background = rgb(249/255,248/255,224/255), filetype = ".png", farver = NULL){
 
   # Load the map data
   shapefile <- fmkort::regional
@@ -58,11 +61,13 @@ fmcirkelkort <- function(data, lat, lon, label = NULL, radius = 10, color = NULL
   colnames(data) <- c("lat","lon", "label", "color", "radius")
 
 
-  # Make the FM color pallet
-  farver <- c(rgb(3/255,29/255,92/255), rgb(148/255,0/255,39/255),rgb(176/255,201/255,51/255),
-              rgb(116/255,201/255,230/255), rgb(30/255,119/255,150/255), rgb(176/255,148/255,9/255),
-              rgb(0/255,84/255,46/255), rgb(230/255,68/255,21/255), rgb(112/255,80/255,185/255),
-              rgb(85/255,145/255,205/255), rgb(240/255,0/255,95/255))
+  # Change the color pallet.
+  if (is.null(farver)){
+    farver <- c(rgb(3/255,29/255,92/255),rgb(148/255,0/255,39/255), rgb(116/255,201/255,230/255),
+                rgb(176/255,201/255,51/255), rgb(30/255,119/255,150/255), rgb(176/255,148/255,9/255),
+                rgb(0/255,84/255,46/255), rgb(230/255,68/255,21/255), rgb(112/255,80/255,185/255),
+                rgb(85/255,145/255,205/255), rgb(240/255,0/255,95/255))
+  }
 
   if (scale == "factor"){
     farver <- farver[1:length(unique(data$color))]
@@ -114,7 +119,7 @@ fmcirkelkort <- function(data, lat, lon, label = NULL, radius = 10, color = NULL
 
 
   # Change the backgroup color to the FM color
-  leafletmap <- leafletmap %>% setMapWidgetStyle(list(background = rgb(249/255,248/255,224/255)))
+  leafletmap <- leafletmap %>% setMapWidgetStyle(list(background = background))
 
 
   # Moved the map to the center of Denmark
@@ -129,9 +134,8 @@ fmcirkelkort <- function(data, lat, lon, label = NULL, radius = 10, color = NULL
 
   # Export the graph as a .png file if specified.
   if(!is.null(output)){
-    graph_name <- paste(output,".png", sep="")
-    mapview::mapshot(leafletmap, file = graph_name,
-                     remove_controls = c("zoomControl"), vwidth = 500, vheight = 600)
+    graph_name <- paste(output, filetype, sep="")
+    mapview::mapshot(leafletmap, file = graph_name, vwidth = 500, vheight = 600)
   }
 
 

@@ -17,7 +17,10 @@ fmcirkelkort(
   dot = TRUE,
   textsize = "11px",
   legend = FALSE,
-  output = NULL
+  output = NULL,
+  background = rgb(249/255, 248/255, 224/255),
+  filetype = ".png",
+  farver = NULL
 )
 }
 \arguments{
@@ -46,6 +49,12 @@ fmcirkelkort(
 \item{legend}{Add a legend to the graph}
 
 \item{output}{The name of the output (a .png file). If not specified, not outcome will b exported.}
+
+\item{background}{Choose the background color}
+
+\item{filetype}{Choose the file type of the output file ("png" (= defalut), "pdf" or ".jpeg")}
+
+\item{farver}{A character vector containing colors. (default = FM colors)}
 }
 \value{
 A map of Denmark with circles on
