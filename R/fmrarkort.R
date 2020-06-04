@@ -14,6 +14,7 @@
 #' @param ndigits The number of digits on the marker text
 #' @param background Choose the background color
 #' @param filetype Choose the file type of the output file ("png" (= defalut), "pdf" or ".jpeg")
+#' @param farver A character vector containing colors. (default = FM colors)
 #'
 #' @return A map of the RAR areas.
 #' @export
@@ -22,7 +23,7 @@
 #' \dontrun{
 #' fmrarkort(data = data, id = id, value = value)
 #' }
-fmrarkort <- function(data = NULL, id = NULL, value = NULL, scale = 'numeric', bins = 5, legend = FALSE,  legendtitle = NULL, bornholm = TRUE, output = NULL, marker = TRUE, suffix = "", ndigits = 1, background = rgb(249/255,248/255,224/255), filetype = ".png"){
+fmrarkort <- function(data = NULL, id = NULL, value = NULL, scale = 'numeric', bins = 5, legend = FALSE,  legendtitle = NULL, farver = NULL, bornholm = TRUE, output = NULL, marker = TRUE, suffix = "", ndigits = 1, background = rgb(249/255,248/255,224/255), filetype = ".png"){
 
   # Adjust the data
   data$tom <- 0
@@ -151,7 +152,7 @@ fmrarkort <- function(data = NULL, id = NULL, value = NULL, scale = 'numeric', b
 
 
   # Create the map
-  leafletmap <- fmkommunekort(data = komdata, id = "id", value = "value",  scale = scale, bins = bins, legend = legend,  legendtitle = legendtitle, bornholm = bornholm, output = output, background = background, filetype = filetype)
+  leafletmap <- fmkommunekort(data = komdata, id = "id", value = "value",  scale = scale, bins = bins, legend = legend,  legendtitle = legendtitle, bornholm = bornholm, output = NULL, background = background)
 
   # Add markers if specified
   if(marker == T){
@@ -191,6 +192,13 @@ fmrarkort <- function(data = NULL, id = NULL, value = NULL, scale = 'numeric', b
                                                                                   'background-color' = 'rgba(255,255,255,0.7)'
                                                                               )))
   }
+
+  # Export the graph as a .png file if specified.
+  if(!is.null(output)){
+    graph_name <- paste(output, filetype, sep="")
+    mapview::mapshot(leafletmap, file = graph_name, vwidth = 550, vheight = 600)
+  }
+
 
   return(leafletmap)
 
