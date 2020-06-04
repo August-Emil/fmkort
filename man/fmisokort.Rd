@@ -16,7 +16,10 @@ fmisokort(
   api_key = NULL,
   legend = FALSE,
   output = NULL,
-  map = NULL
+  map = NULL,
+  farver = NULL,
+  background = rgb(249/255, 248/255, 224/255),
+  filetype = ".png"
 )
 }
 \arguments{
@@ -43,6 +46,12 @@ fmisokort(
 \item{output}{The name of the output (a .png file). If not specified, not outcome will b exported.}
 
 \item{map}{Add the isochrones to a map.}
+
+\item{farver}{A character vector containing colors. (default = FM colors)}
+
+\item{background}{Choose the background color}
+
+\item{filetype}{Choose the file type of the output file ("png" (= defalut), "pdf" or ".jpeg")}
 }
 \value{
 a map

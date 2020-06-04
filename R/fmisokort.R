@@ -12,6 +12,9 @@
 #' @param map Add the isochrones to a map.
 #' @param color The color of the isochrones
 #' @param legend Add a legend? default = FALSE
+#' @param background Choose the background color
+#' @param filetype Choose the file type of the output file ("png" (= defalut), "pdf" or ".jpeg")
+#' @param farver A character vector containing colors. (default = FM colors)
 #'
 #' @return a map
 #'
@@ -24,7 +27,7 @@
 #' \dontrun{
 #' fmisokort()
 #' }
-fmisokort <- function(data = NULL, lat = NULL, lon = NULL, color = NULL, quota = 500, profile = 'driving-car', range = 10, intervals = 1, api_key = NULL, legend = FALSE, output = NULL, map = NULL){
+fmisokort <- function(data = NULL, lat = NULL, lon = NULL, color = NULL, quota = 500, profile = 'driving-car', range = 10, intervals = 1, api_key = NULL, legend = FALSE, output = NULL, map = NULL, farver = NULL, background = rgb(249/255,248/255,224/255), filetype = ".png"){
 
   # Find the maximum number of iterations
   max_reaced <- min(quota, ceiling(nrow(data) / 5))
@@ -42,10 +45,13 @@ fmisokort <- function(data = NULL, lat = NULL, lon = NULL, color = NULL, quota =
   colors <- as.data.frame(colors)
   colnames(colors) <- c("color")
 
-  farver <- c(rgb(3/255,29/255,92/255),rgb(148/255,0/255,39/255),rgb(116/255,201/255,230/255),
-              rgb(176/255,201/255,51/255),rgb(30/255,119/255,150/255), rgb(176/255,148/255,9/255),
-              rgb(0/255,84/255,46/255), rgb(230/255,68/255,21/255), rgb(112/255,80/255,185/255),
-              rgb(85/255,145/255,205/255), rgb(240/255,0/255,95/255))
+  # Change the color pallet.
+  if (is.null(farver)){
+    farver <- c(rgb(3/255,29/255,92/255),rgb(148/255,0/255,39/255), rgb(116/255,201/255,230/255),
+                rgb(176/255,201/255,51/255), rgb(30/255,119/255,150/255), rgb(176/255,148/255,9/255),
+                rgb(0/255,84/255,46/255), rgb(230/255,68/255,21/255), rgb(112/255,80/255,185/255),
+                rgb(85/255,145/255,205/255), rgb(240/255,0/255,95/255))
+  }
 
   farver <- farver[1:length(unique(colors$color))]
   factpal <- colorFactor(farver, colors$color, ordered = T)
@@ -96,7 +102,7 @@ fmisokort <- function(data = NULL, lat = NULL, lon = NULL, color = NULL, quota =
 
 
   # Change the backgroup color to the FM color
-  leafletmap <- leafletmap %>% setMapWidgetStyle(list(background = rgb(249/255,248/255,224/255)))
+  leafletmap <- leafletmap %>% setMapWidgetStyle(list(background = background))
 
 
   # Moved the map to the center of Denmark
@@ -109,7 +115,7 @@ fmisokort <- function(data = NULL, lat = NULL, lon = NULL, color = NULL, quota =
 
   # Export the graph as a .png file if specified.
   if(!is.null(output)){
-    graph_name <- paste(output,".png", sep="")
+    graph_name <- paste(output,filetype, sep="")
     mapview::mapshot(leafletmap, file = graph_name,
                      remove_controls = c("zoomControl"), vwidth = 500, vheight = 600)
   }
